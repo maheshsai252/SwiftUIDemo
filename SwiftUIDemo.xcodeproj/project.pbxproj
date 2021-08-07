@@ -13,6 +13,7 @@
 		B10AC20526BDB0F200839BEC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B10AC20426BDB0F200839BEC /* Preview Assets.xcassets */; };
 		B10AC20726BDB0F200839BEC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10AC20626BDB0F200839BEC /* Persistence.swift */; };
 		B10AC20A26BDB0F200839BEC /* SwiftUIDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B10AC20826BDB0F200839BEC /* SwiftUIDemo.xcdatamodeld */; };
+		B10AC21326BDB3AD00839BEC /* FirstTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B10AC21226BDB3AD00839BEC /* FirstTabView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		B10AC20626BDB0F200839BEC /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		B10AC20926BDB0F200839BEC /* SwiftUIDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftUIDemo.xcdatamodel; sourceTree = "<group>"; };
 		B10AC20B26BDB0F200839BEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B10AC21226BDB3AD00839BEC /* FirstTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstTabView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		B10AC1FC26BDB0F100839BEC /* SwiftUIDemo */ = {
 			isa = PBXGroup;
 			children = (
+				B10AC21126BDB39A00839BEC /* Tabs */,
 				B10AC1FD26BDB0F100839BEC /* SwiftUIDemoApp.swift */,
 				B10AC1FF26BDB0F100839BEC /* ContentView.swift */,
 				B10AC20126BDB0F200839BEC /* Assets.xcassets */,
@@ -73,6 +76,14 @@
 				B10AC20426BDB0F200839BEC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B10AC21126BDB39A00839BEC /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				B10AC21226BDB3AD00839BEC /* FirstTabView.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B10AC21326BDB3AD00839BEC /* FirstTabView.swift in Sources */,
 				B10AC20A26BDB0F200839BEC /* SwiftUIDemo.xcdatamodeld in Sources */,
 				B10AC20726BDB0F200839BEC /* Persistence.swift in Sources */,
 				B10AC20026BDB0F100839BEC /* ContentView.swift in Sources */,

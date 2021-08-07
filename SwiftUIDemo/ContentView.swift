@@ -6,72 +6,64 @@
 //
 
 import SwiftUI
-import CoreData
-
+enum Tab: String, Codable {
+    case firstTab
+    case secondTab
+    case thirdTab
+}
+class TabStateHandler: ObservableObject {
+    @Published var tabSelected: Tab = .secondTab
+    @Published var selected = 1
+    {
+        didSet {
+            print(oldValue)
+            if oldValue == selected && selected == 1 {
+                moveFirstTabToTop.toggle()
+            }
+        }
+    }
+    @Published var moveFirstTabToTop: Bool = false
+    
+}
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
+ 
+    @StateObject var tabStateHandler: TabStateHandler = TabStateHandler()
+    @State var selected = Tab.firstTab
     var body: some View {
-        List {
-            ForEach(items) { item in
-                Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-            }
-            .onDelete(perform: deleteItems)
-        }
-        .toolbar {
-            #if os(iOS)
-            EditButton()
-            #endif
+        TabView(selection: $tabStateHandler.selected) {
+            FirstTabView(moveToTopIndicator: $tabStateHandler.moveFirstTabToTop)
+                .tabItem {
+                    Image(systemName: "01.square.fill")
+                        .resizable()
+                        .frame(width: 100, height: 100, alignment: .center)
+                    Text(Tab.firstTab.rawValue)
+                }.tag(1)
+            Text("2 tab")
+                .tabItem {
+                    Image(systemName: "02.square.fill")
+                    Text(Tab.secondTab.rawValue)
 
-            Button(action: addItem) {
-                Label("Add Item", systemImage: "plus")
-            }
+                }.tag(2)
+            Text("3 tab")
+                .tabItem {
+                    Image(systemName: "03.square.fill")
+                    Text(Tab.thirdTab.rawValue)
+
+                }.tag(3)
         }
+//        .onChange(of: tabSelected, perform: { [tabSelected] value in
+//            print(value)
+//            moveFirstTabToTop.toggle()
+//            print(tabSelected)
+//            if tabSelected == value && value == .firstTab {
+//                moveFirstTabToTop.toggle()
+//            }
+//        })
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
