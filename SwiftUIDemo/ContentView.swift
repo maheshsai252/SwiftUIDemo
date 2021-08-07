@@ -6,18 +6,19 @@
 //
 
 import SwiftUI
-enum Tab: String, Codable {
+enum Tab: String, Codable, Comparable {
+    static func < (lhs: Tab, rhs: Tab) -> Bool {
+        lhs.rawValue < rhs.rawValue
+    }
+    
     case firstTab
     case secondTab
     case thirdTab
 }
 class TabStateHandler: ObservableObject {
-    @Published var tabSelected: Tab = .secondTab
-    @Published var selected = 1
-    {
+    @Published var tabSelected: Tab = .secondTab {
         didSet {
-            print(oldValue)
-            if oldValue == selected && selected == 1 {
+            if oldValue == tabSelected && tabSelected == .firstTab {
                 moveFirstTabToTop.toggle()
             }
         }
@@ -26,39 +27,29 @@ class TabStateHandler: ObservableObject {
     
 }
 struct ContentView: View {
- 
     @StateObject var tabStateHandler: TabStateHandler = TabStateHandler()
-    @State var selected = Tab.firstTab
     var body: some View {
-        TabView(selection: $tabStateHandler.selected) {
+        TabView(selection: $tabStateHandler.tabSelected) {
             FirstTabView(moveToTopIndicator: $tabStateHandler.moveFirstTabToTop)
                 .tabItem {
                     Image(systemName: "01.square.fill")
                         .resizable()
                         .frame(width: 100, height: 100, alignment: .center)
                     Text(Tab.firstTab.rawValue)
-                }.tag(1)
+                }.tag(Tab.firstTab)
             Text("second tab")
                 .tabItem {
                     Image(systemName: "02.square.fill")
                     Text(Tab.secondTab.rawValue)
 
-                }.tag(2)
+                }.tag(Tab.secondTab)
             Text("third tab")
                 .tabItem {
                     Image(systemName: "03.square.fill")
                     Text(Tab.thirdTab.rawValue)
-
-                }.tag(3)
+                }.tag(Tab.thirdTab)
         }
-//        .onChange(of: tabSelected, perform: { [tabSelected] value in
-//            print(value)
-//            moveFirstTabToTop.toggle()
-//            print(tabSelected)
-//            if tabSelected == value && value == .firstTab {
-//                moveFirstTabToTop.toggle()
-//            }
-//        })
+     
     }
 
 }
