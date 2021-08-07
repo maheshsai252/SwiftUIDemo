@@ -38,13 +38,13 @@ struct ContentView: View {
                         .frame(width: 100, height: 100, alignment: .center)
                     Text(Tab.firstTab.rawValue)
                 }.tag(1)
-            Text("2 tab")
+            Text("second tab")
                 .tabItem {
                     Image(systemName: "02.square.fill")
                     Text(Tab.secondTab.rawValue)
 
                 }.tag(2)
-            Text("3 tab")
+            Text("third tab")
                 .tabItem {
                     Image(systemName: "03.square.fill")
                     Text(Tab.thirdTab.rawValue)
